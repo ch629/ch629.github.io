@@ -1,6 +1,8 @@
 ---
 title: "Services"
 date: 2026-03-21T12:00:00Z
+description: "Contract backend engineering services for Go platforms, event-driven migrations, and payments infrastructure."
+keywords: ["backend consulting", "go contract engineer", "payments consulting", "event-driven architecture"]
 ---
 
 I help teams deliver reliable backend systems, with a focus on payments and event-driven architecture.

@@ -1,0 +1,64 @@
+{{- $title := cond .IsHome .Site.Title .Title -}}
+{{- $description := "" -}}
+{{- if .IsHome -}}
+  {{- $description = .Site.Params.description | default .Site.Params.subtitle -}}
+{{- else -}}
+  {{- $description = .Description | default (.Summary | plainify) | default .Site.Params.description -}}
+{{- end -}}
+{{- $image := "" -}}
+{{- if and (not .IsHome) (isset .Params "cover") -}}
+  {{- $image = .Param "cover" | absURL -}}
+{{- else if gt (len (.Site.Params.images | default (slice))) 0 -}}
+  {{- $image = (index .Site.Params.images 0) | absURL -}}
+{{- else if isset .Site.Params "favicon" -}}
+  {{- $image = .Site.Params.favicon | absURL -}}
+{{- else -}}
+  {{- $image = (printf "img/favicon/%s.png" (.Site.Params.themeColor | default "orange")) | absURL -}}
+{{- end -}}
+
+<meta name="author" content="{{ .Site.Params.owner | default "Charlie Howes" }}" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $description | plainify }}" />
+<meta name="twitter:image" content="{{ $image }}" />
+
+<link rel="me" href="https://github.com/ch629" />
+<link rel="me" href="https://linkedin.com/in/charlie-howes" />
+
+{{- if .IsHome -}}
+  {{- $person := dict
+    "@context" "https://schema.org"
+    "@type" "Person"
+    "name" "Charlie Howes"
+    "url" .Site.BaseURL
+    "jobTitle" "Contract Software Engineer"
+    "description" ($description | plainify)
+    "email" "mailto:charliehowes97@outlook.com"
+    "sameAs" (slice "https://github.com/ch629" "https://linkedin.com/in/charlie-howes")
+    "knowsAbout" (slice "Go" "Distributed systems" "Payments infrastructure" "Kafka" "NATS" "Event-driven architecture")
+  -}}
+  <script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+
+  {{- $website := dict
+    "@context" "https://schema.org"
+    "@type" "WebSite"
+    "name" .Site.Title
+    "url" .Site.BaseURL
+    "description" ($description | plainify)
+  -}}
+  <script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- if and .IsPage (eq .Section "posts") -}}
+  {{- $article := dict
+    "@context" "https://schema.org"
+    "@type" "Article"
+    "headline" .Title
+    "description" ($description | plainify)
+    "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "author" (dict "@type" "Person" "name" "Charlie Howes")
+    "mainEntityOfPage" .Permalink
+    "image" (slice $image)
+  -}}
+  <script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
+{{- end -}}

@@ -1,6 +1,8 @@
 ---
 title: "Contact"
 date: 2026-03-21T12:05:00Z
+description: "Get in touch with Charlie Howes for contract backend engineering support."
+keywords: ["hire backend contractor", "contact go engineer", "charlie howes"]
 ---
 
 If you are hiring for a backend contract role, I would be happy to discuss your project.

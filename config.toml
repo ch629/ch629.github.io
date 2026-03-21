@@ -4,6 +4,12 @@ title = "Charlie Howes | Contract Software Engineer"
 theme = "terminal"
 paginate = 5
 enableRobotsTXT = true
+enableGitInfo = true
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.7
+  filename = "sitemap.xml"
 
 [author]
   name = "Charlie Howes"
@@ -16,6 +22,10 @@ enableRobotsTXT = true
   term = ["HTML"]
 
 [params]
+  description = "Senior contract backend engineer specializing in Go, payments infrastructure, and distributed systems."
+  keywords = "contract software engineer,go contractor,backend contractor,payments engineer,distributed systems,kafka,nats,uk,senior,senior engineer,finance,fintech"
+  images = ["/img/og/charlie-howes-contract-engineer.svg"]
+
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
   contentTypeName = "posts"
@@ -40,7 +50,7 @@ enableRobotsTXT = true
 
   # set post to show the last updated
   # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
-  showLastUpdated = false
+  showLastUpdated = true
   # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
   # updatedDatePrefix = "Updated"
 
@@ -48,13 +58,16 @@ enableRobotsTXT = true
   # it's set to `true` by default
   # oneHeadingSize = false
 
+  [params.twitter]
+    creator = "@ch629"
+
 [languages]
   [languages.en]
     languageName = "English"
     title = "Charlie Howes | Contract Software Engineer"
     subtitle = "Senior backend engineer for distributed systems and payments"
     owner = "Charlie Howes"
-    keywords = "go,golang,payments,distributed-systems,kafka,nats,contractor"
+    keywords = "go,golang,payments,distributed-systems,kafka,nats,contractor,freelance,uk,remote"
     copyright = "© Charlie Howes"
     menuMore = "Show more"
     readMore = "Read more"

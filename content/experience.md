@@ -1,6 +1,8 @@
 ---
 title: "Experience"
 date: 2026-03-21T10:05:00Z
+description: "Experience delivering high-throughput Go and payments systems across Banked, American Express, and contract work."
+keywords: ["backend experience", "payments platform", "go engineer cv", "distributed systems"]
 ---
 
 ## Profile

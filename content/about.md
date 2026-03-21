@@ -1,9 +1,12 @@
 ---
 title: "About"
 date: 2026-03-21T10:00:00Z
+description: "About Charlie Howes, a contract backend engineer focused on Go, payments platforms, and distributed systems."
+keywords:
+  ["about charlie howes", "go engineer", "payments backend", "contractor"]
 ---
 
-I am Charlie Howes, a senior backend engineer focused on distributed systems, payments, and delivery in regulated environments.
+I am Charlie, a senior backend engineer focused on distributed systems, payments, and delivery in regulated environments.
 
 I have worked across high-scale financial platforms, leading architecture and migrations that needed to be safe, observable, and production-ready from day one.
 

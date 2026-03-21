@@ -1,5 +1,7 @@
 ---
 title: "Contract Software Engineering"
+description: "Senior Go backend contractor for payments and distributed systems delivery."
+keywords: ["go contractor", "backend contractor", "payments engineer", "distributed systems", "contract software engineer"]
 ---
 
 I am Charlie, a senior backend engineer specializing in Go-based distributed systems and payments infrastructure.
