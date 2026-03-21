@@ -1,4 +1,11 @@
 {{- $metaDescription := "" -}}
+{{- $gaID := "" -}}
+{{- with $.Site.Config.Services.GoogleAnalytics -}}
+  {{- $gaID = .ID -}}
+{{- end -}}
+{{- if not $gaID -}}
+  {{- $gaID = getenv "HUGO_SERVICES_GOOGLEANALYTICS_ID" -}}
+{{- end -}}
 {{- if .IsHome -}}
   {{- $metaDescription = $.Site.Params.Subtitle | default $.Site.Params.Description -}}
 {{- else if .Description -}}
@@ -9,16 +16,34 @@
   {{- $metaDescription = $.Site.Params.Description -}}
 {{- end -}}
 
+{{- $scriptSrc := slice "'self'" "'unsafe-inline'" -}}
+{{- $connectSrc := slice "'self'" -}}
+{{- $imgSrc := slice "'self'" "data:" "https:" -}}
+{{- if $gaID -}}
+  {{- $scriptSrc = $scriptSrc | append "https://www.googletagmanager.com" -}}
+  {{- $connectSrc = $connectSrc | append "https://www.google-analytics.com" "https://region1.google-analytics.com" -}}
+  {{- $imgSrc = $imgSrc | append "https://www.google-analytics.com" -}}
+{{- end -}}
+{{- $csp := printf "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; connect-src %s; img-src %s; style-src 'self' 'unsafe-inline'; script-src %s; font-src 'self' data:; upgrade-insecure-requests" (delimit $connectSrc " ") (delimit $imgSrc " ") (delimit $scriptSrc " ") -}}
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; connect-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="{{ $csp }}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="{{ $metaDescription }}" />
 <meta name="keywords" content="{{ with .Params.Keywords }}{{ delimit . ", " }}{{ else }}{{ $.Site.Params.Keywords }}{{ end }}" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="{{ .Permalink }}" />
 
-{{ template "_internal/google_analytics.html" . }}
+{{- if $gaID -}}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ $gaID }}', { 'anonymize_ip': true });
+  </script>
+{{- end -}}
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{{ "assets/style.css" | absURL }}">

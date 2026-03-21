@@ -8,6 +8,12 @@ enableGitInfo = true
 disableKinds = ["taxonomy", "term"]
 disablePathToLower = true
 
+[services]
+  [services.googleAnalytics]
+    # Set your GA4 measurement ID, e.g. G-XXXXXXXXXX.
+    # Or leave empty and set HUGO_SERVICES_GOOGLEANALYTICS_ID.
+    id = ""
+
 [sitemap]
   changefreq = "weekly"
   priority = 0.7
