@@ -3,26 +3,26 @@ name: github pages
 on:
   push:
     branches:
-      - main  # Set a branch to deploy
+      - main # Set a branch to deploy
   pull_request:
 
 jobs:
   deploy:
     runs-on: ubuntu-24.04
-    environment: gh-pages
+    environment: github-pages
     env:
       GA_ID_FROM_VARS: ${{ vars.HUGO_SERVICES_GOOGLEANALYTICS_ID }}
       GA_ID_FROM_SECRETS: ${{ secrets.HUGO_SERVICES_GOOGLEANALYTICS_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: "latest"
           # extended: true
 
       - name: Build
