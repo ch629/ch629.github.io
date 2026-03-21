@@ -1,8 +1,19 @@
-baseURL = "/"
+baseURL = "https://charliehowes.com/"
 languageCode = 'en-us'
-title = "Charlie's Blog"
+title = "Charlie Howes | Contract Software Engineer"
 theme = "terminal"
 paginate = 5
+enableRobotsTXT = true
+
+[author]
+  name = "Charlie Howes"
+  email = "charliehowes97@outlook.com"
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -13,7 +24,7 @@ paginate = 5
   themeColor = "green"
 
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 2
+  showMenuItems = 6
 
   # show selector to switch language
   showLanguageSelector = false
@@ -40,10 +51,10 @@ paginate = 5
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Charlie's Blog"
-    subtitle = "abc foo bar baz"
+    title = "Charlie Howes | Contract Software Engineer"
+    subtitle = "Senior backend engineer for distributed systems and payments"
     owner = "Charlie Howes"
-    keywords = "programming,go,golang,dev"
+    keywords = "go,golang,payments,distributed-systems,kafka,nats,contractor"
     copyright = "© Charlie Howes"
     menuMore = "Show more"
     readMore = "Read more"
@@ -54,7 +65,7 @@ paginate = 5
     missingBackButtonLabel = "Back to home page"
 
     [languages.en.params.logo]
-      logoText = "Charlie's Blog"
+      logoText = "Charlie Howes"
       logoHomeLink = "/"
 
     [languages.en.menu]
@@ -63,6 +74,18 @@ paginate = 5
         name = "About"
         url = "/about"
       [[languages.en.menu.main]]
-        identifier = "github"
-        name = "GitHub"
-        url = "https://github.com/ch629"
+        identifier = "services"
+        name = "Services"
+        url = "/services"
+      [[languages.en.menu.main]]
+        identifier = "experience"
+        name = "Experience"
+        url = "/experience"
+      [[languages.en.menu.main]]
+        identifier = "contact"
+        name = "Contact"
+        url = "/contact"
+      [[languages.en.menu.main]]
+        identifier = "blog"
+        name = "Blog"
+        url = "/posts"
