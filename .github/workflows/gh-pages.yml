@@ -9,6 +9,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+    environment: gh-pages
+    env:
+      HUGO_SERVICES_GOOGLEANALYTICS_ID: ${{ vars.HUGO_SERVICES_GOOGLEANALYTICS_ID != '' && vars.HUGO_SERVICES_GOOGLEANALYTICS_ID || secrets.HUGO_SERVICES_GOOGLEANALYTICS_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
