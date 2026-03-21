@@ -4,6 +4,8 @@ description: "Senior Go backend contractor for payments and distributed systems 
 keywords: ["go contractor", "backend contractor", "payments engineer", "distributed systems", "contract software engineer"]
 ---
 
+# Senior Go backend contractor for payments and distributed systems
+
 I am Charlie, a senior contract backend engineer specializing in Go, distributed systems, and payments infrastructure.
 
 I help product and platform teams deliver high-throughput services with clear architecture, safe migrations, and reliable production operations.
