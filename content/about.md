@@ -38,6 +38,7 @@ I work best with teams that need to move quickly without compromising quality, c
 - Email: [charliehowes97@outlook.com](mailto:charliehowes97@outlook.com)
 - GitHub: [github.com/ch629](https://github.com/ch629)
 - LinkedIn: [linkedin.com/in/charlie-howes](https://linkedin.com/in/charlie-howes)
+- CV: [Download](/CharlieH_CV.pdf)
 
 If you are hiring for a contract role, feel free to reach out with project details, timeline, and expected outcomes.
 

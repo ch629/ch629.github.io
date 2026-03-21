@@ -95,6 +95,10 @@ enableGitInfo = true
         name = "Experience"
         url = "/experience"
       [[languages.en.menu.main]]
+        identifier = "cv"
+        name = "CV"
+        url = "/CharlieH_CV.pdf"
+      [[languages.en.menu.main]]
         identifier = "contact"
         name = "Contact"
         url = "/contact"
