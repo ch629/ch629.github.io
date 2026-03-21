@@ -17,4 +17,13 @@ If you are hiring for a backend contract role, I would be happy to discuss your 
 - Remote-first, UK time zone friendly
 - Typical response time: within 1 business day
 
-When reaching out, it helps to include project scope, timeline, and team setup.
+## What to include in your message
+
+To make first conversations useful, include:
+
+- Project scope and current technical constraints
+- Target delivery dates or milestones
+- Existing stack (for example Go, Kafka, NATS, Kubernetes)
+- Team setup and expected contractor responsibilities
+
+I can then quickly confirm fit, availability, and a practical starting plan.

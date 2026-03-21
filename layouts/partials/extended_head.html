@@ -1,5 +1,6 @@
 {{- $title := cond .IsHome .Site.Title .Title -}}
 {{- $description := "" -}}
+{{- $siteURL := .Site.BaseURL -}}
 {{- if .IsHome -}}
   {{- $description = .Site.Params.description | default .Site.Params.subtitle -}}
 {{- else -}}
@@ -17,9 +18,11 @@
 {{- end -}}
 
 <meta name="author" content="{{ .Site.Params.owner | default "Charlie Howes" }}" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ $title }}" />
 <meta name="twitter:description" content="{{ $description | plainify }}" />
 <meta name="twitter:image" content="{{ $image }}" />
+<meta property="og:image:alt" content="{{ $title }}" />
 
 <link rel="me" href="https://github.com/ch629" />
 <link rel="me" href="https://linkedin.com/in/charlie-howes" />
@@ -29,7 +32,7 @@
     "@context" "https://schema.org"
     "@type" "Person"
     "name" "Charlie Howes"
-    "url" .Site.BaseURL
+    "url" $siteURL
     "jobTitle" "Contract Software Engineer"
     "description" ($description | plainify)
     "email" "mailto:charliehowes97@outlook.com"
@@ -42,10 +45,48 @@
     "@context" "https://schema.org"
     "@type" "WebSite"
     "name" .Site.Title
-    "url" .Site.BaseURL
+    "url" $siteURL
     "description" ($description | plainify)
   -}}
   <script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- if or .IsHome (eq .RelPermalink "/services/") -}}
+  {{- $professionalService := dict
+    "@context" "https://schema.org"
+    "@type" "ProfessionalService"
+    "name" "Charlie Howes"
+    "url" $siteURL
+    "description" "Contract backend engineering for Go platforms, payment systems, and distributed architecture delivery."
+    "image" (slice $image)
+    "email" "mailto:charliehowes97@outlook.com"
+    "founder" (dict "@type" "Person" "name" "Charlie Howes")
+    "sameAs" (slice "https://github.com/ch629" "https://linkedin.com/in/charlie-howes")
+    "areaServed" (slice (dict "@type" "Country" "name" "United Kingdom") (dict "@type" "Place" "name" "Remote"))
+    "serviceType" (slice "Go backend engineering" "Payments platform engineering" "Distributed systems architecture" "Migration delivery")
+  -}}
+  <script type="application/ld+json">{{ $professionalService | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- if eq .RelPermalink "/services/" -}}
+  {{- $faq := dict
+    "@context" "https://schema.org"
+    "@type" "FAQPage"
+    "mainEntity" (slice
+      (dict
+        "@type" "Question"
+        "name" "Do you work on short-term projects?"
+        "acceptedAnswer" (dict "@type" "Answer" "text" "Yes. I support both focused short-term delivery work and longer multi-phase engagements."))
+      (dict
+        "@type" "Question"
+        "name" "Can you help with existing systems, not just new builds?"
+        "acceptedAnswer" (dict "@type" "Answer" "text" "Yes. A large part of my work is improving live systems, handling migrations, and reducing operational risk while features continue to ship."))
+      (dict
+        "@type" "Question"
+        "name" "Do you only work with UK companies?"
+        "acceptedAnswer" (dict "@type" "Answer" "text" "No. I am UK-based and remote-first, and I work with distributed teams across different regions.")))
+  -}}
+  <script type="application/ld+json">{{ $faq | jsonify | safeJS }}</script>
 {{- end -}}
 
 {{- if and .IsPage (eq .Section "posts") -}}

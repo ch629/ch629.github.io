@@ -23,6 +23,7 @@ enableGitInfo = true
 
 [params]
   description = "Senior contract backend engineer specializing in Go, payments infrastructure, and distributed systems."
+  subtitle = "Hire a senior Go backend contractor for payments and distributed systems delivery."
   keywords = "contract software engineer,go contractor,backend contractor,payments engineer,distributed systems,kafka,nats,uk,senior,senior engineer,finance,fintech"
   images = ["/img/og/charlie-howes-contract-engineer.svg"]
 

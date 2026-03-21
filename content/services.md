@@ -5,7 +5,7 @@ description: "Contract backend engineering services for Go platforms, event-driv
 keywords: ["backend consulting", "go contract engineer", "payments consulting", "event-driven architecture"]
 ---
 
-I help teams deliver reliable backend systems, with a focus on payments and event-driven architecture.
+I provide contract backend engineering services for teams shipping Go platforms, payment products, and distributed systems.
 
 ## What I help with
 
@@ -21,6 +21,12 @@ I help teams deliver reliable backend systems, with a focus on payments and even
 - Platform modernization and migration programs
 - Technical leadership for multi-team backend initiatives
 
+## Who I work with
+
+- Fintech and regulated product teams scaling payment systems
+- SaaS teams moving from monoliths to service-based architecture
+- Engineering leaders needing senior delivery support during high-pressure roadmap phases
+
 ## How I usually work
 
 1. Discovery: understand constraints, risks, and desired outcomes.
@@ -32,5 +38,19 @@ I help teams deliver reliable backend systems, with a focus on payments and even
 - Remote-first collaboration
 - UK time zone friendly
 - Weekly progress updates and clear next steps
+
+## Frequently asked questions
+
+### Do you work on short-term projects?
+
+Yes. I support both focused short-term delivery work and longer multi-phase engagements.
+
+### Can you help with existing systems, not just new builds?
+
+Yes. A large part of my work is improving live systems, handling migrations, and reducing operational risk while features continue to ship.
+
+### Do you only work with UK companies?
+
+No. I am UK-based and remote-first, and I work with distributed teams across different regions.
 
 If you are hiring for contract backend support, email [charliehowes97@outlook.com](mailto:charliehowes97@outlook.com).
