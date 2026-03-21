@@ -1,0 +1,22 @@
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  transform: translateY(-140%);
+  padding: 8px 12px;
+  background: #111;
+  color: #fff;
+  border: 2px solid currentColor;
+  z-index: 200;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(12px);
+}
+
+.menu-trigger:focus,
+.menu-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
