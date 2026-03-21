@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contract Software Engineering on Charlie Howes | Contract Software Engineer</title>
+    <link>/</link>
+    <description>Recent content in Contract Software Engineering on Charlie Howes | Contract Software Engineer</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© Charlie Howes</copyright>
+    <lastBuildDate>Sat, 21 Mar 2026 10:05:00 +0000</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Experience</title>
+      <link>/experience/</link>
+      <pubDate>Sat, 21 Mar 2026 10:05:00 +0000</pubDate>
+      <guid>/experience/</guid>
+      <description>&lt;h2 id=&#34;profile&#34;&gt;Profile&lt;/h2&gt;&#xA;&lt;p&gt;Senior backend engineer specializing in Go-based distributed systems and payments infrastructure. I have led design and delivery of high-throughput platforms across multiple teams, with a focus on event-driven architecture and correctness under failure.&lt;/p&gt;&#xA;&lt;h2 id=&#34;recent-roles&#34;&gt;Recent roles&lt;/h2&gt;&#xA;&lt;h3 id=&#34;betika-contract---senior-software-engineer&#34;&gt;Betika (Contract) - Senior Software Engineer&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Remote | March 2026 to Present&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Contract engagement focused on backend delivery and platform development.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;banked---senior-backend-engineer-payments&#34;&gt;Banked - Senior Backend Engineer, Payments&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Remote | November 2021 to February 2026&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Sat, 21 Mar 2026 10:00:00 +0000</pubDate>
+      <guid>/about/</guid>
+      <description>&lt;p&gt;I am Charlie Howes, a senior backend engineer focused on distributed systems, payments, and delivery in regulated environments.&lt;/p&gt;&#xA;&lt;p&gt;I have worked across high-scale financial platforms, leading architecture and migrations that needed to be safe, observable, and production-ready from day one.&lt;/p&gt;&#xA;&lt;p&gt;I recently started contracting and I am available for:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Go backend platform development&lt;/li&gt;&#xA;&lt;li&gt;Event-driven system design and migration&lt;/li&gt;&#xA;&lt;li&gt;Payments infrastructure and integrations&lt;/li&gt;&#xA;&lt;li&gt;Reliability, observability, and incident resilience&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;I work best with teams that need to move quickly without compromising quality, compliance, or operational safety.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
