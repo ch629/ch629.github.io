@@ -53,123 +53,111 @@
     gtag('config', '{{ $gaID }}', { 'anonymize_ip': true });
 
     (function() {
-      var isBlogPost = window.location.pathname.indexOf('/posts/') === 0 && !!document.querySelector('.post-content');
-      if (!isBlogPost) {
-        return;
+      var pagePath = window.location.pathname;
+
+      function track(name, params) {
+        gtag('event', name, params);
       }
 
-      var postTitleElement = document.querySelector('.post-title');
-      var postTitle = postTitleElement ? (postTitleElement.textContent || '').trim() : document.title;
-      var postTags = Array.prototype.slice.call(document.querySelectorAll('.post-tags a'))
-        .map(function(tagLink) { return (tagLink.textContent || '').trim().toLowerCase(); })
-        .filter(function(tag) { return tag.length > 0; })
-        .join(',');
-      var contentText = (document.querySelector('.post-content') || document.body).innerText || '';
-      var wordCount = contentText.trim() ? contentText.trim().split(/\s+/).length : 0;
-      var readingTimeMin = Math.max(1, Math.round(wordCount / 200));
-
-      gtag('event', 'blog_post_view', {
-        post_title: postTitle,
-        post_path: window.location.pathname,
-        post_tags: postTags,
-        word_count: wordCount,
-        reading_time_min: readingTimeMin
-      });
-
-      var readDepthTracked = false;
-      var engagedTracked = false;
-
-      function trackReadDepth() {
-        if (readDepthTracked) {
+      function trackBlogEvents() {
+        var postContent = document.querySelector('.post-content');
+        if (pagePath.indexOf('/posts/') !== 0 || !postContent) {
           return;
         }
 
-        var scrollTop = window.scrollY || window.pageYOffset || 0;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight <= 0) {
-          return;
-        }
+        var postTitleNode = document.querySelector('.post-title');
+        var postTitle = postTitleNode ? (postTitleNode.textContent || '').trim() : document.title;
+        var postTags = Array.prototype.map.call(document.querySelectorAll('.post-tags a'), function(node) {
+          return (node.textContent || '').trim().toLowerCase();
+        }).filter(function(tag) {
+          return tag;
+        }).join(',');
+        var words = (postContent.innerText || '').trim().split(/\s+/).filter(Boolean);
+        var wordCount = words.length;
 
-        var readDepth = Math.round((scrollTop / docHeight) * 100);
-        if (readDepth >= 75) {
-          readDepthTracked = true;
-          gtag('event', 'blog_post_read_depth', {
+        track('blog_post_view', {
+          post_title: postTitle,
+          post_path: pagePath,
+          post_tags: postTags,
+          word_count: wordCount,
+          reading_time_min: Math.max(1, Math.round(wordCount / 200))
+        });
+
+        function onScroll() {
+          var scrollTop = window.scrollY || window.pageYOffset || 0;
+          var scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (scrollableHeight <= 0) {
+            return;
+          }
+
+          var readDepth = Math.round((scrollTop / scrollableHeight) * 100);
+          if (readDepth < 75) {
+            return;
+          }
+
+          track('blog_post_read_depth', {
             post_title: postTitle,
-            post_path: window.location.pathname,
+            post_path: pagePath,
             read_depth_percent: readDepth
           });
+          window.removeEventListener('scroll', onScroll);
         }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.setTimeout(function() {
+          track('blog_post_engaged', {
+            post_title: postTitle,
+            post_path: pagePath,
+            engaged_time_sec: 30
+          });
+        }, 30000);
       }
 
-      window.addEventListener('scroll', trackReadDepth, { passive: true });
+      function trackClickEvents() {
+        document.addEventListener('click', function(event) {
+          var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+          if (!link) {
+            return;
+          }
 
-      window.setTimeout(function() {
-        if (engagedTracked) {
-          return;
-        }
-        engagedTracked = true;
-        gtag('event', 'blog_post_engaged', {
-          post_title: postTitle,
-          post_path: window.location.pathname,
-          engaged_time_sec: 30
+          var href = link.getAttribute('href') || '';
+          var linkUrl = link.href || href;
+          var linkText = (link.textContent || '').trim().toLowerCase();
+          var contactMethod = href.indexOf('mailto:') === 0 ? 'email' :
+            linkUrl.indexOf('linkedin.com/in/charlie-howes') !== -1 ? 'linkedin' :
+            linkUrl.indexOf('github.com/ch629') !== -1 ? 'github' : '';
+
+          if (contactMethod) {
+            track('contact_click', {
+              contact_method: contactMethod,
+              link_url: linkUrl,
+              page_path: pagePath
+            });
+            return;
+          }
+
+          if (link.closest('.menu, .header')) {
+            track('navigation_click', {
+              link_text: linkText,
+              link_url: linkUrl,
+              page_path: pagePath
+            });
+            return;
+          }
+
+          if (link.classList.contains('button') || link.classList.contains('read-more')) {
+            track('cta_click', {
+              link_text: linkText,
+              link_url: linkUrl,
+              page_path: pagePath
+            });
+          }
         });
-      }, 30000);
+      }
+
+      trackBlogEvents();
+      trackClickEvents();
     })();
-
-    document.addEventListener('click', function(event) {
-      var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
-      if (!link || typeof gtag !== 'function') {
-        return;
-      }
-
-      var href = link.getAttribute('href') || '';
-      var absoluteHref = link.href || href;
-      var linkText = (link.textContent || '').trim().toLowerCase();
-
-      if (href.indexOf('mailto:') === 0) {
-        gtag('event', 'contact_click', {
-          contact_method: 'email',
-          link_url: absoluteHref,
-          page_path: window.location.pathname
-        });
-        return;
-      }
-
-      if (absoluteHref.indexOf('linkedin.com/in/charlie-howes') !== -1) {
-        gtag('event', 'contact_click', {
-          contact_method: 'linkedin',
-          link_url: absoluteHref,
-          page_path: window.location.pathname
-        });
-        return;
-      }
-
-      if (absoluteHref.indexOf('github.com/ch629') !== -1) {
-        gtag('event', 'contact_click', {
-          contact_method: 'github',
-          link_url: absoluteHref,
-          page_path: window.location.pathname
-        });
-        return;
-      }
-
-      if (link.closest('.menu, .header')) {
-        gtag('event', 'navigation_click', {
-          link_text: linkText,
-          link_url: absoluteHref,
-          page_path: window.location.pathname
-        });
-        return;
-      }
-
-      if (link.classList.contains('button') || link.classList.contains('read-more')) {
-        gtag('event', 'cta_click', {
-          link_text: linkText,
-          link_url: absoluteHref,
-          page_path: window.location.pathname
-        });
-      }
-    });
   </script>
 {{- end -}}
 
