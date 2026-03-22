@@ -19,6 +19,9 @@
 {{- $scriptSrc := slice "'self'" "'unsafe-inline'" -}}
 {{- $connectSrc := slice "'self'" -}}
 {{- $imgSrc := slice "'self'" "data:" "https:" -}}
+{{- $themeName := lower ($.Site.Params.ThemeColor | default "green") -}}
+{{- $themeColorMap := dict "orange" "#f39c12" "blue" "#4e9af1" "red" "#e06c75" "green" "#78b159" "pink" "#ff6f91" -}}
+{{- $themeColor := index $themeColorMap $themeName | default "#78b159" -}}
 {{- if $gaID -}}
   {{- $scriptSrc = $scriptSrc | append "https://www.googletagmanager.com" -}}
   {{- $connectSrc = $connectSrc | append "https://www.google-analytics.com" "https://region1.google-analytics.com" -}}
@@ -27,13 +30,19 @@
 {{- $csp := printf "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; connect-src %s; img-src %s; style-src 'self' 'unsafe-inline'; script-src %s; font-src 'self' data:; upgrade-insecure-requests" (delimit $connectSrc " ") (delimit $imgSrc " ") (delimit $scriptSrc " ") -}}
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="{{ $themeColor }}">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="{{ $.Site.Title }}">
 <meta http-equiv="Content-Security-Policy" content="{{ $csp }}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="{{ $metaDescription }}" />
 <meta name="keywords" content="{{ with .Params.Keywords }}{{ delimit . ", " }}{{ else }}{{ $.Site.Params.Keywords }}{{ end }}" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="{{ .Permalink }}" />
+<link rel="manifest" href="{{ "manifest.webmanifest" | absURL }}">
 
 {{- if $gaID -}}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaID }}"></script>
@@ -42,6 +51,125 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '{{ $gaID }}', { 'anonymize_ip': true });
+
+    (function() {
+      var isBlogPost = window.location.pathname.indexOf('/posts/') === 0 && !!document.querySelector('.post-content');
+      if (!isBlogPost) {
+        return;
+      }
+
+      var postTitleElement = document.querySelector('.post-title');
+      var postTitle = postTitleElement ? (postTitleElement.textContent || '').trim() : document.title;
+      var postTags = Array.prototype.slice.call(document.querySelectorAll('.post-tags a'))
+        .map(function(tagLink) { return (tagLink.textContent || '').trim().toLowerCase(); })
+        .filter(function(tag) { return tag.length > 0; })
+        .join(',');
+      var contentText = (document.querySelector('.post-content') || document.body).innerText || '';
+      var wordCount = contentText.trim() ? contentText.trim().split(/\s+/).length : 0;
+      var readingTimeMin = Math.max(1, Math.round(wordCount / 200));
+
+      gtag('event', 'blog_post_view', {
+        post_title: postTitle,
+        post_path: window.location.pathname,
+        post_tags: postTags,
+        word_count: wordCount,
+        reading_time_min: readingTimeMin
+      });
+
+      var readDepthTracked = false;
+      var engagedTracked = false;
+
+      function trackReadDepth() {
+        if (readDepthTracked) {
+          return;
+        }
+
+        var scrollTop = window.scrollY || window.pageYOffset || 0;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) {
+          return;
+        }
+
+        var readDepth = Math.round((scrollTop / docHeight) * 100);
+        if (readDepth >= 75) {
+          readDepthTracked = true;
+          gtag('event', 'blog_post_read_depth', {
+            post_title: postTitle,
+            post_path: window.location.pathname,
+            read_depth_percent: readDepth
+          });
+        }
+      }
+
+      window.addEventListener('scroll', trackReadDepth, { passive: true });
+
+      window.setTimeout(function() {
+        if (engagedTracked) {
+          return;
+        }
+        engagedTracked = true;
+        gtag('event', 'blog_post_engaged', {
+          post_title: postTitle,
+          post_path: window.location.pathname,
+          engaged_time_sec: 30
+        });
+      }, 30000);
+    })();
+
+    document.addEventListener('click', function(event) {
+      var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+      if (!link || typeof gtag !== 'function') {
+        return;
+      }
+
+      var href = link.getAttribute('href') || '';
+      var absoluteHref = link.href || href;
+      var linkText = (link.textContent || '').trim().toLowerCase();
+
+      if (href.indexOf('mailto:') === 0) {
+        gtag('event', 'contact_click', {
+          contact_method: 'email',
+          link_url: absoluteHref,
+          page_path: window.location.pathname
+        });
+        return;
+      }
+
+      if (absoluteHref.indexOf('linkedin.com/in/charlie-howes') !== -1) {
+        gtag('event', 'contact_click', {
+          contact_method: 'linkedin',
+          link_url: absoluteHref,
+          page_path: window.location.pathname
+        });
+        return;
+      }
+
+      if (absoluteHref.indexOf('github.com/ch629') !== -1) {
+        gtag('event', 'contact_click', {
+          contact_method: 'github',
+          link_url: absoluteHref,
+          page_path: window.location.pathname
+        });
+        return;
+      }
+
+      if (link.closest('.menu, .header')) {
+        gtag('event', 'navigation_click', {
+          link_text: linkText,
+          link_url: absoluteHref,
+          page_path: window.location.pathname
+        });
+        return;
+      }
+
+      if (link.classList.contains('button') || link.classList.contains('read-more')) {
+        gtag('event', 'cta_click', {
+          link_text: linkText,
+          link_url: absoluteHref,
+          page_path: window.location.pathname
+        });
+      }
+    });
   </script>
 {{- end -}}
 
@@ -59,11 +187,14 @@
 {{- end }}
 
 <!-- Icons -->
-<link rel="apple-touch-icon" href="{{ "img/apple-touch-icon-192x192.png" | absURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "img/apple-touch-icon.png" | absURL }}">
 {{ if isset $.Site.Params "favicon" }}
   <link rel="shortcut icon" href="{{ $.Site.Params.favicon | absURL }}">
 {{ else }}
-  <link rel="shortcut icon" href="{{ printf "img/favicon/%s.png" ($.Site.Params.ThemeColor | default "orange") | absURL }}">
+  <link rel="icon" type="image/svg+xml" href="{{ "img/favicon/favicon.svg" | absURL }}">
+  <link rel="shortcut icon" href="{{ "img/favicon/favicon-32x32.png" | absURL }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ "img/favicon/favicon-32x32.png" | absURL }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ "img/favicon/favicon-16x16.png" | absURL }}">
 {{ end }}
 
 <!-- OG data -->
