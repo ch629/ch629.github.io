@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Charlie Howes app icon</title>
+  <desc id="desc">Green rounded square with CH monogram.</desc>
+  <rect width="512" height="512" rx="96" fill="#78b159"/>
+  <path d="M172 168h168v48H220v80h96v48h-96v80h120v48H172V168zm216 0h48v304h-48V344h-72v-48h72V168z" fill="#111111"/>
+</svg>
