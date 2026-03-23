@@ -24,10 +24,10 @@ disablePathToLower = true
   email = "charliehowes97@outlook.com"
 
 [outputs]
-  home = ["HTML"]
-  section = ["HTML"]
-  taxonomy = ["HTML"]
-  term = ["HTML"]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
 
 [params]
   description = "Senior contract backend engineer specializing in Go, payments infrastructure, and distributed systems."
