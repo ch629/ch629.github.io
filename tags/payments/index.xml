@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Payments on Charlie Howes | Contract Software Engineer</title><link>https://charliehowes.com/tags/payments/</link><description>Recent content in Payments on Charlie Howes | Contract Software Engineer</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© Charlie Howes</copyright><lastBuildDate>Sat, 21 Mar 2026 11:00:00 +0000</lastBuildDate><atom:link href="https://charliehowes.com/tags/payments/index.xml" rel="self" type="application/rss+xml"/><item><title>Starting This Engineering Log</title><link>https://charliehowes.com/posts/first-post/</link><pubDate>Sat, 21 Mar 2026 11:00:00 +0000</pubDate><guid>https://charliehowes.com/posts/first-post/</guid><description>&lt;p&gt;I have wanted to start writing consistently for a while, so this is the first post in what I plan to keep as a practical engineering log.&lt;/p&gt;
+&lt;p&gt;The goal is simple: share useful patterns from real projects, especially where delivery speed, reliability, and compliance need to coexist.&lt;/p&gt;
+&lt;p&gt;Most of my recent work sits at the intersection of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Go backend services and platform foundations&lt;/li&gt;
+&lt;li&gt;Payments integrations and regulated system design&lt;/li&gt;
+&lt;li&gt;Safe migration work across data stores, queues, and service boundaries&lt;/li&gt;
+&lt;li&gt;Reliability improvements that teams can sustain after handover&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am not aiming for generic tutorials. I want these posts to be concise and production-oriented: what worked, what failed, and the trade-offs that mattered.&lt;/p&gt;</description><content>&lt;p&gt;I have wanted to start writing consistently for a while, so this is the first post in what I plan to keep as a practical engineering log.&lt;/p&gt;
+&lt;p&gt;The goal is simple: share useful patterns from real projects, especially where delivery speed, reliability, and compliance need to coexist.&lt;/p&gt;
+&lt;p&gt;Most of my recent work sits at the intersection of:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Go backend services and platform foundations&lt;/li&gt;
+&lt;li&gt;Payments integrations and regulated system design&lt;/li&gt;
+&lt;li&gt;Safe migration work across data stores, queues, and service boundaries&lt;/li&gt;
+&lt;li&gt;Reliability improvements that teams can sustain after handover&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am not aiming for generic tutorials. I want these posts to be concise and production-oriented: what worked, what failed, and the trade-offs that mattered.&lt;/p&gt;
+&lt;h2 id="what-to-expect-next"&gt;What to expect next&lt;/h2&gt;
+&lt;p&gt;Over the next few posts, I will cover:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A migration playbook for reducing blast radius when changing core flows&lt;/li&gt;
+&lt;li&gt;Practical observability baselines for high-throughput Go services&lt;/li&gt;
+&lt;li&gt;Patterns for integrating external payment providers without locking the domain model to one vendor&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you are working on similar problems, feel free to reach out and compare notes.&lt;/p&gt;</content></item></channel></rss>
